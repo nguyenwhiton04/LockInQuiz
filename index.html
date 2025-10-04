@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hiep Si Picnic Quiz</title>
+<style>
+  body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #fbe9e7, #f48fb1);
+  margin: 0;
+  padding: 10px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.quiz-container {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;   /* good for desktop */
+  width: 100%;        /* will shrink on small screens */
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  color: #d81b60;
+  font-size: 1.8em;
+}
+
+p.description {
+  text-align: center;
+  color: #444;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.question h3 {
+  font-size: 1.1em;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1em;
+  line-height: 1.4em;
+}
+
+button {
+  background: #d81b60;
+  color: #fff;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #ad1457;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .quiz-container {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 10px;
+  }
+
+  h1 {
+    font-size: 1.5em;
+  }
+
+  .question h3 {
+    font-size: 1em;
+  }
+
+  label {
+    font-size: 0.95em;
+  }
+
+  button {
+    font-size: 1em;
+    padding: 12px;
+  }
+}
+
+.hidden{
+    display: none;
+  }
+
+#answer-text{
+    color: white;
+}
+
+</style>
+</head>
+<body>
+
+<div id="result" class="secret-message hidden">
+    <h1 id="answer-text">🎉 THE SECRET CODE TO THE TREASURE IS 508 🎉</h1>
+</div>
+
+<div class="quiz-container" id="quiz-container">
+  <h1>Hiep Si Picnic</h1>
+  <p class="description">Look for <span style="color:red;">RED</span> mật thư's to complete this form in order to obtain the code to the treasure :)</p>
+
+  <form id="quizForm">
+
+    <div class="question">
+      <h3>Station 2 - what was the secret message? (all caps)</h3>
+      <input type="text" id="q1">
+    </div>
+
+    <div class="question">
+      <h3>Station 4 - what was the secret message?</h3>
+      <label><input type="radio" name="q2" value="red"> red</label>
+      <label><input type="radio" name="q2" value="white"> white</label>
+      <label><input type="radio" name="q2" value="green"> green</label>
+      <label><input type="radio" name="q2" value="blue"> blue</label>
+      <label><input type="radio" name="q2" value="show off your natural hues"> show off your natural hues</label>
+      <label><input type="radio" name="q2" value="flamingo"> flamingo</label>
+      <label><input type="radio" name="q2" value="multicolored"> if you're multicolored that's cool too</label>
+    </div>
+
+    <div class="question">
+      <h3>Station 6 - what was the answer to the question?</h3>
+      <label><input type="radio" name="q3" value="seafood boil"> seafood boil</label>
+      <label><input type="radio" name="q3" value="Tr. Martin"> Tr. Martin</label>
+      <label><input type="radio" name="q3" value="BTS"> BTS</label>
+      <label><input type="radio" name="q3" value="Geometry"> Geometry</label>
+      <label><input type="radio" name="q3" value="Pink"> Pink</label>
+      <label><input type="radio" name="q3" value="H&M"> H&M</label>
+    </div>
+
+    <div class="question">
+      <h3>Station 7 - what was the answer? (all caps)</h3>
+      <input type="text" id="q4">
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="error" class="error"></div>
+</div>
+
+<script>
+  const form = document.getElementById("quizForm");
+  const result = document.getElementById("result");
+  const error = document.getElementById("error");
+  const quiz_container = document.getElementById("quiz-container");
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    // Get answers
+    const q1 = document.getElementById("q1").value.trim();
+    const q2 = document.querySelector('input[name="q2"]:checked');
+    const q3 = document.querySelector('input[name="q3"]:checked');
+    const q4 = document.getElementById("q4").value.trim();
+
+    // Check correctness
+    if (
+      q1 === "POOPOOPEEPEE" &&
+      q2 && q2.value === "red" &&
+      q3 && q3.value === "Pink" &&
+      q4 === "SUSAN"
+    ) {
+      result.style.display = "block";
+      result.classList.remove("hidden");
+      quiz_container.classList.add("hidden");
+      error.textContent = "";
+
+    } else {
+      result.style.display = "none";
+      error.textContent = "❌ Some answers are incorrect. Try again!";
+    }
+  });
+</script>
+
+</body>
+</html>
